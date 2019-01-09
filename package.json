@@ -1,0 +1,22 @@
+{
+  "name": "qqmusicdownload",
+  "version": "1.0.0",
+  "description": "批量获取qq音乐下载链接",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmdboys/qqMusicDownload.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cmdboys/qqMusicDownload/issues"
+  },
+  "homepage": "https://github.com/cmdboys/qqMusicDownload#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
