@@ -1,6 +1,7 @@
 let axios = require('axios')
 const request = require("request");
 const fs = require("fs");
+let qs = require('qs')
 
 class Chrome {
 
@@ -8,9 +9,10 @@ class Chrome {
 
   }
 
-  download(uri, path){
+  download(url, path){
+
     return new Promise(resolve => {
-      request(uri)
+      request(url)
         .pipe(fs.createWriteStream(path))
         .on("error",function(err){
           resolve({
@@ -26,14 +28,21 @@ class Chrome {
     })
   }
 
-  get(url, data){
+  get(url, data, header, urlData){
     return new Promise(resolve => {
-      axios.get(url ,
-        data || {},
-        {
+
+      if(url.indexOf('?') === -1){
+        url += '?' + ( urlData ? decodeURIComponent(qs.stringify(urlData)) : '')
+      }
+
+      axios({
+        method: 'GET',
+        url: url,
+        data: data || {},
+        headers: Object.assign({
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36'
-        })
-        .then(function (response) {
+        }, header)
+      }).then(function (response) {
           // handle success
           resolve({
             code: 200,

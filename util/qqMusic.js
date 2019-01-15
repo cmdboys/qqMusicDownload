@@ -193,26 +193,61 @@ class QQMusc {
   }
 
   async getPlayList(playListUrl){
-    let innerHTML = await chrome.get(playListUrl)
 
-    let output = []
-
-    var $= cheerio.load(innerHTML.data);
-    var list = $('.songlist__list').children();
-
-
-    for(let i = 0; i<list.length; i++) {
-      let target = list[i]
-
-      // output.push(target.find('.js_song'))
-      console.log($(target).html())
-
-      return
-
+    let returnStatus = {
+      code: 200,
+      list: [],
+      err_msg: '',
+      infoList: []
     }
 
-    console.log(output)
+    let dissid = null
 
+    try {
+      dissid = playListUrl.split('/').pop().replace('.html', '')
+    } catch (e) {
+      returnStatus.code = 500
+      returnStatus.err_msg = '链接错误'
+    }
+
+    if(!dissid) {
+      return returnStatus
+    }
+
+
+    let info = await chrome.get(api_list.GET_PLAYLIST, {}, {
+      referer: 'https://y.qq.com/n/yqq/playlist'
+    }, {
+      type: 1,
+      json: 1,
+      utf8: 1,
+      onlysong: 0,
+      disstid: dissid,
+      g_tk: 5381,
+      loginUin: 0,
+      hostUin: 0,
+      format: 'json',
+      inCharset: 'utf8',
+      outCharset: 'utf-8',
+      notice: 0,
+      platform: 'yqq.json',
+      needNewCode: 0
+    })
+
+    try {
+      let list = info.data.cdlist[0].songlist
+
+      for(let i = 0; i<list.length; i++) {
+        let target = list[i]
+        returnStatus.list.push(api_list.SONE_LINK.replace('{songmid}', target.songmid))
+        returnStatus.infoList.push(target)
+      }
+    } catch (e) {
+      returnStatus.code = 500
+      returnStatus.err_msg = '解析失败'
+    }
+
+    return returnStatus
 
   }
 
