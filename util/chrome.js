@@ -1,9 +1,29 @@
 let axios = require('axios')
+const request = require("request");
+const fs = require("fs");
 
 class Chrome {
 
   constructor(){
 
+  }
+
+  download(uri, path){
+    return new Promise(resolve => {
+      request(uri)
+        .pipe(fs.createWriteStream(path))
+        .on("error",function(err){
+          resolve({
+            code: 500,
+            err
+          });
+        })
+        .on("close",() => {
+          resolve({
+            code: 200,
+          });
+        })
+    })
   }
 
   get(url, data){

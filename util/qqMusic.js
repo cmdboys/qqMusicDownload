@@ -1,6 +1,8 @@
 
 let chrome = require('./chrome')
 let api_list = require('../config/API_LIST')
+let path = require('path')
+let cheerio = require('cheerio');
 
 class QQMusc {
 
@@ -8,14 +10,16 @@ class QQMusc {
     this.uin = '1008611'
     this.guid = '1234567890'
     this.sizeList = [
-      // {
-      //   type: 'size_flac',
-      //   downloadType: ['F000', 'flac']
-      // },
+      /* 目前只能解下载mp3
+      {
+        type: 'size_flac',
+        downloadType: ['F000', 'flac']
+      },
       {
         type: 'size_ape',
         downloadType: ['A000', 'ape']
       },
+      */
       {
         type: 'size_320mp3',
         downloadType: ['M800', 'mp3']
@@ -84,6 +88,7 @@ class QQMusc {
 
       try {
         file = info.data.data[0].file
+        file.name = info.data.data[0].name
       } catch (e) {
 
       }
@@ -98,7 +103,6 @@ class QQMusc {
   async getDownloadLink(media_mid, vkey, downloadType){
     return `${api_list.GET_DOWNLOAD}/${downloadType.downloadType[0]}${media_mid}.${downloadType.downloadType[1]}?vkey=${vkey}&guid=1234567890&uin=1008611&fromtag=8`
   }
-
 
   async getDownloadLinksByArray(arrOrString){
 
@@ -144,9 +148,6 @@ class QQMusc {
       // 获取media id
       let file = await this.getMedia(mid)
 
-      console.log(
-        file, '<-----------------'
-      )
 
       if(!file) {
         item.err_msg = '获取media信息失败'
@@ -165,12 +166,53 @@ class QQMusc {
       let downloadLink = await this.getDownloadLink(mid, vkey, checked)
 
       item.url = downloadLink
-
+      item.name = file.name
+      item.tyep = checked.downloadType[1]
+      item.fileName = file.name+'.'+checked.downloadType[1]
 
       returnStatus.list.push(item)
     }
 
     return returnStatus
+
+  }
+
+  async downloadMp3(arr, basePath, callback){
+    let list = arr.list
+    let downloadInfo = []
+
+    for(let i=0; i<list.length; i++) {
+      let target = list[i]
+      let info = await chrome.download(target.url, path.join(basePath, target.fileName))
+      info.target = target
+      callback && callback(info)
+      downloadInfo.push(info)
+    }
+
+    return downloadInfo
+  }
+
+  async getPlayList(playListUrl){
+    let innerHTML = await chrome.get(playListUrl)
+
+    let output = []
+
+    var $= cheerio.load(innerHTML.data);
+    var list = $('.songlist__list').children();
+
+
+    for(let i = 0; i<list.length; i++) {
+      let target = list[i]
+
+      // output.push(target.find('.js_song'))
+      console.log($(target).html())
+
+      return
+
+    }
+
+    console.log(output)
+
 
   }
 
