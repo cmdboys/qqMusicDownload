@@ -14,7 +14,7 @@ QQ音乐批量下载、解析，支持下载指定链接或者一张专辑。由
 解析一首歌的下载链接
 
 #### `@params`  
-`qqMusic.getDownloadLinksByArray([String, Array])`
+qqMusic.getDownloadLinksByArray(`[String, Array]`)
 
 #### `@return`
 返回解析后的链接
