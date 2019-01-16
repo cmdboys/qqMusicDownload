@@ -24,15 +24,7 @@ qqMusic.getDownloadLinksByArray(`[String, Array]`)
 ##### 单链接
 ```js
 let qqMusic = new QQMusic();
-let data = await qqMusic.getDownloadLinksByArray(
-  [
-    'https://y.qq.com/n/yqq/song/001bhwUC1gE6ep.html',
-    'https://y.qq.com/n/yqq/song/003ITzMw2CRNZX.html',
-    'https://y.qq.com/n/yqq/song/001O8Fq6090GIP.html',
-    'https://y.qq.com/n/yqq/song/002YiXmX3PKZHE.html',
-    'https://y.qq.com/n/yqq/song/002i47OG1GAKRM.html'
-  ]
-)
+let data = await qqMusic.getDownloadLinksByArray('https://y.qq.com/n/yqq/song/002i47OG1GAKRM.html')
 ```
 
 ##### 多链接
