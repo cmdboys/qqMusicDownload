@@ -4,9 +4,9 @@ QQ音乐批量下载、解析，支持下载指定链接或者一张专辑。由
 ## API
 
 * QQMusic
-  * getDownloadLinksByArray
-  * downloadMp3
-  * getPlayList
+  * <a href="#getdownloadlinksbyarray">getDownloadLinksByArray</a>
+  * <a href="#getplaylist">downloadMp3</a>
+  * <a href="#downloadmp3">getPlayList</a>
 
 
 
