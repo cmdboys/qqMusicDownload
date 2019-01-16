@@ -10,7 +10,7 @@ let qqMusic = new QQMusic();
 
   // 下载歌单
 
-  let playList = await qqMusic.getPlayList('https://y.qq.com/n/yqq/playlist/5109299040.html')
+  let playList = await qqMusic.getPlayList('https://y.qq.com/n/yqq/playsquare/5084277757.html#stat=y_new.playlist.pic_click')
 
   let data = await qqMusic.getDownloadLinksByArray(playList.list)
   let downloadInfo = await qqMusic.downloadMp3(data, basePath, (info)=>{

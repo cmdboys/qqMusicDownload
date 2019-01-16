@@ -1,8 +1,9 @@
 
-let chrome = require('./chrome')
-let api_list = require('../config/API_LIST')
-let path = require('path')
+let chrome = require('./chrome');
+let api_list = require('../config/API_LIST');
+let path = require('path');
 let cheerio = require('cheerio');
+let url = require('url');
 
 class QQMusc {
 
@@ -57,9 +58,10 @@ class QQMusc {
   }
 
   getMid(songLink){
+    let req = url.parse(songLink)
     let mid = null
     try {
-      let a1 = songLink.split('/').pop()
+      let a1 = req.path.split('/').pop()
       mid = a1.split('.')[0]
     } catch (e) {
 
@@ -204,7 +206,8 @@ class QQMusc {
     let dissid = null
 
     try {
-      dissid = playListUrl.split('/').pop().replace('.html', '')
+      let req = url.parse(playListUrl)
+      dissid = req.path.split('/').pop().replace('.html', '')
     } catch (e) {
       returnStatus.code = 500
       returnStatus.err_msg = '链接错误'
