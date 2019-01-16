@@ -3,6 +3,11 @@ QQ音乐批量下载、解析，支持下载指定链接或者一张专辑。由
 
 ![](https://user-gold-cdn.xitu.io/2019/1/16/1685476e0ae191a8?w=997&h=523&f=png&s=38709)
 
+## Install
+
+```
+npm i qqmusicdownload
+```
 
 ## API
 
@@ -28,12 +33,16 @@ qqMusic.getDownloadLinksByArray(`[@downloadLink: String | Array]`)
 
 ##### 单链接
 ```js
+let QQMusic = require('qqmusicdownload')
+
 let qqMusic = new QQMusic();
 let data = await qqMusic.getDownloadLinksByArray('https://y.qq.com/n/yqq/song/002i47OG1GAKRM.html')
 ```
 
 ##### 多链接
 ```js
+let QQMusic = require('qqmusicdownload')
+
 let qqMusic = new QQMusic();
 let data = await qqMusic.getDownloadLinksByArray(
   [
@@ -63,6 +72,8 @@ qqMusic.getPlayList(`[@playListLink: String]`)
 #### `@example`
 
 ```js
+let QQMusic = require('qqmusicdownload')
+
 let qqMusic = new QQMusic();
 let playList = await qqMusic.getPlayList('https://y.qq.com/n/yqq/playlist/5109299040.html')
 ```
@@ -90,6 +101,7 @@ qqMusic.downloadMp3(`[@downloadArray: Array], [@basePath: String], [@callback: F
 
 let path = require('path')
 let basePath = path.join(__dirname, '../output')
+let QQMusic = require('qqmusicdownload')
 
 let qqMusic = new QQMusic();
 let data = await qqMusic.getDownloadLinksByArray(
@@ -110,6 +122,7 @@ let downloadInfo = await qqMusic.downloadMp3(data, basePath, (info)=>{
 ```js
 let path = require('path')
 let basePath = path.join(__dirname, '../output')
+let QQMusic = require('qqmusicdownload')
 
 let qqMusic = new QQMusic();
 let playList = await qqMusic.getPlayList('https://y.qq.com/n/yqq/playlist/5109299040.html')
