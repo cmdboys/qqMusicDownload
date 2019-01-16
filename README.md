@@ -84,6 +84,10 @@ qqMusic.downloadMp3(`[@downloadArray: Array], [@basePath: String], [@callback: F
 
 ##### 下载单曲
 ```js
+
+let path = require('path')
+let basePath = path.join(__dirname, '../output')
+
 let qqMusic = new QQMusic();
 let data = await qqMusic.getDownloadLinksByArray(
   [
@@ -101,6 +105,9 @@ let downloadInfo = await qqMusic.downloadMp3(data, basePath, (info)=>{
 
 ##### 下载歌单
 ```js
+let path = require('path')
+let basePath = path.join(__dirname, '../output')
+
 let qqMusic = new QQMusic();
 let playList = await qqMusic.getPlayList('https://y.qq.com/n/yqq/playlist/5109299040.html')
 
