@@ -3,7 +3,6 @@ QQ音乐批量下载、解析，支持下载指定链接或者一张专辑。由
 
 ![](https://user-gold-cdn.xitu.io/2019/1/16/1685476e0ae191a8?w=997&h=523&f=png&s=38709)
 
-![](https://user-gold-cdn.xitu.io/2019/1/16/16854780631f7db7?w=614&h=648&f=png&s=99118)
 
 ## API
 
