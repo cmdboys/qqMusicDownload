@@ -13,13 +13,13 @@ QQ音乐批量下载、解析，支持下载指定链接或者一张专辑。由
 ### getDownloadLinksByArray
 解析一首歌的下载链接
 
-#### @params  
+#### `@params`  
 `qqMusic.getDownloadLinksByArray([String, Array])`
 
-#### @return
+#### `@return`
 返回解析后的链接
 
-#### @example
+#### `@example`
 
 ##### 单链接
 ```js
